@@ -63,6 +63,11 @@ function PetKennel:RegisterListeners()
         , PetKennel.OnOpenStore
         )
 
+    EVENT_MANAGER:RegisterForEvent(self.name
+        , EVENT_CHATTER_BEGIN
+        , PetKennel.OnChatterBegin
+        )
+
 end
 
 function PetKennel.OnCraftingStationInteract(event, station_id, same_station)
@@ -70,7 +75,6 @@ function PetKennel.OnCraftingStationInteract(event, station_id, same_station)
     Log.Debug( "OnCraftingStationInteract, enable:%s"
              , tostring(self.saved_vars.enable.crafting_station)
              )
-
     if self.saved_vars.enable.crafting_station ~= false then
         self:HidePet()
     end
@@ -83,7 +87,6 @@ function PetKennel.OnOpenBank(event, station_id, bag_id)
              , tostring(self.saved_vars.enable.banker)
              , tostring(is_assistant)
              )
-
     if (not is_assistant)
         and self.saved_vars.enable.banker ~= false then
         self:HidePet()
@@ -97,13 +100,57 @@ function PetKennel.OnOpenStore(event)
              , tostring(self.saved_vars.enable.merchant)
              , tostring(is_assistant)
              )
-
     if (not is_assistant)
         and self.saved_vars.enable.merchant ~= false then
         self:HidePet()
     end
 end
 
+function PetKennel.OnChatterBegin(option_ct)
+    local self = PetKennel
+    local dialog_title = self:GetDialogTitle()
+
+    local is_writ_board = LibCraftText.DailyDialogTitleIsWritBoard(dialog_title)
+    if is_writ_board then
+        Log.Debug( "OnChatterBegin, enable:%s is_writ_board:%s"
+                 , tostring(self.saved_vars.enable.crafting_board)
+                 , tostring(is_writ_board)
+                 )
+        if self.saved_vars.enable.crafting_board ~= false then
+            self:HidePet()
+        end
+        return
+    end
+
+    local is_turn_in = LibCraftText.DailyDialogTurnInTitleToCraftingType(dialog_title)
+    if is_turn_in then
+        Log.Debug( "OnChatterBegin, enable:%s is_turn_in:%s"
+                 , tostring(self.saved_vars.enable.turn_in)
+                 , tostring(is_turn_in)
+                 )
+        if self.saved_vars.enable.turn_in ~= false then
+            self:HidePet()
+        end
+        return
+    end
+
+    local is_rolis = LibCraftText.MASTER.DIALOG.TITLE_ROLIS == dialog_title
+    if is_rolis then
+        Log.Debug( "OnChatterBegin, enable:%s is_rolis:%s"
+                 , tostring(self.saved_vars.enable.rolis)
+                 , tostring(is_rolis)
+                 )
+        if self.saved_vars.enable.rolis ~= false then
+            self:HidePet()
+        end
+        return
+    end
+
+end
+
+function PetKennel:GetDialogTitle()
+    return ZO_InteractWindowTargetAreaTitle:GetText()
+end
 
 -- Key Binding ---------------------------------------------------------------
 

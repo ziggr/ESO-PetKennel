@@ -20,6 +20,17 @@ function PetKennel:CreateSettingsUI()
                                                      )
     local optionsData = {
         { type      = "checkbox"
+        , name      = "crafting writ board"
+        , tooltip   = "Hide pet at daily crafting writ board?"
+        , getFunc   = function()
+                        return self.saved_vars.enable.crafting_board ~= false
+                      end
+        , setFunc   = function(e)
+                        self.saved_vars.enable.crafting_board = e
+                      end
+        },
+
+        { type      = "checkbox"
         , name      = "crafting station"
         , tooltip   = "Hide pet at crafting station?"
         , getFunc   = function()
@@ -31,13 +42,13 @@ function PetKennel:CreateSettingsUI()
         },
 
         { type      = "checkbox"
-        , name      = "crafting writ board"
-        , tooltip   = "Hide pet at daily crafting writ board?"
+        , name      = "writ turn-in"
+        , tooltip   = "Hide pet at writ turn-in crates?"
         , getFunc   = function()
-                        return self.saved_vars.enable.crafting_board ~= false
+                        return self.saved_vars.enable.turn_in ~= false
                       end
         , setFunc   = function(e)
-                        self.saved_vars.enable.crafting_board = e
+                        self.saved_vars.enable.turn_in = e
                       end
         },
 
@@ -60,6 +71,17 @@ function PetKennel:CreateSettingsUI()
                       end
         , setFunc   = function(e)
                         self.saved_vars.enable.merchant = e
+                      end
+        },
+
+        { type      = "checkbox"
+        , name      = "rolis"
+        , tooltip   = "Hide pet at Rolis Hlaalu?"
+        , getFunc   = function()
+                        return self.saved_vars.enable.rolis ~= false
+                      end
+        , setFunc   = function(e)
+                        self.saved_vars.enable.rolis = e
                       end
         },
 
