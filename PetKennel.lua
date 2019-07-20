@@ -53,6 +53,16 @@ function PetKennel:RegisterListeners()
         , PetKennel.OnCraftingStationInteract
         )
 
+    EVENT_MANAGER:RegisterForEvent(self.name
+        , EVENT_OPEN_BANK
+        , PetKennel.OnOpenBank
+        )
+
+    EVENT_MANAGER:RegisterForEvent(self.name
+        , EVENT_OPEN_STORE
+        , PetKennel.OnOpenStore
+        )
+
 end
 
 function PetKennel.OnCraftingStationInteract(event, station_id, same_station)
@@ -61,7 +71,35 @@ function PetKennel.OnCraftingStationInteract(event, station_id, same_station)
              , tostring(self.saved_vars.enable.crafting_station)
              )
 
-    if self.saved_vars.enable.crafting_station then
+    if self.saved_vars.enable.crafting_station ~= false then
+        self:HidePet()
+    end
+end
+
+function PetKennel.OnOpenBank(event, station_id, bag_id)
+    local self = PetKennel
+    local is_assistant = IsInteractingWithMyAssistant()
+    Log.Debug( "OnOpenBank, enable:%s assistant:%s"
+             , tostring(self.saved_vars.enable.banker)
+             , tostring(is_assistant)
+             )
+
+    if (not is_assistant)
+        and self.saved_vars.enable.banker ~= false then
+        self:HidePet()
+    end
+end
+
+function PetKennel.OnOpenStore(event)
+    local self = PetKennel
+    local is_assistant = IsInteractingWithMyAssistant()
+    Log.Debug( "OnOpenStore, enable:%s assistant:%s"
+             , tostring(self.saved_vars.enable.merchant)
+             , tostring(is_assistant)
+             )
+
+    if (not is_assistant)
+        and self.saved_vars.enable.merchant ~= false then
         self:HidePet()
     end
 end

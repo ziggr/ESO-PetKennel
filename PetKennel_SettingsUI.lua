@@ -52,6 +52,17 @@ function PetKennel:CreateSettingsUI()
                       end
         },
 
+        { type      = "checkbox"
+        , name      = "merchant"
+        , tooltip   = "Hide pet at merchant?"
+        , getFunc   = function()
+                        return self.saved_vars.enable.merchant ~= false
+                      end
+        , setFunc   = function(e)
+                        self.saved_vars.enable.merchant = e
+                      end
+        },
+
     }
 
     LAM2:RegisterOptionControls(lam_addon_id, optionsData)
