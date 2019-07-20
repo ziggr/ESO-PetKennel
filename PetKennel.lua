@@ -1,7 +1,7 @@
--- PetKennel: Put your bear away in town!
+-- PetKennel: Put away your bear while in town!
 --
 
-local PK        = PetKennel
+local PetKennel = _G['PetKennel']
 
 PetKennel.name              = "PetKennel"
 PetKennel.version           = "5.1.1"
@@ -15,7 +15,7 @@ local Log = PetKennel.Log
 -- Pet -----------------------------------------------------------------------
 
 -- PET_ABILITY_ID array copied from Dolgubon's Lazy Writ Creator DismissPets()
-local PET_ABILITY_ID = {
+PetKennel.PET_ABILITY_ID = {
 [23304]=true, [30631]=true, [30636]=true, [30641]=true, [23319]=true, [30647]=true,
 [30652]=true, [30657]=true, [23316]=true, [30664]=true, [30669]=true, [30674]=true,
 [24613]=true, [30581]=true, [30584]=true, [30587]=true, [24636]=true, [30592]=true,
@@ -33,7 +33,7 @@ function PetKennel:HidePet()
         local buff_index = o[ 4]
         local buff_name  = o[ 1]
         local ability_id = o[11]
-        if PET_ABILITY_ID[ability_id] then
+        if PetKennel.PET_ABILITY_ID[ability_id] then
             -- Log:StartNewEvent("HidePet")
             -- Log:Add("buff", o)
             -- Log:EndEvent()

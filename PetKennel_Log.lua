@@ -1,8 +1,4 @@
--- Record writ item links, inputs, and decisions.
---
--- Operate as a fixed-length queue of the N most recent writs.
-
-local PetKennel = _G['PetKennel'] -- defined in WritWorthy_Define.lua
+local PetKennel = _G['PetKennel']
 
 PetKennel.Log = {}
 

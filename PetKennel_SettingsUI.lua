@@ -1,5 +1,4 @@
-local LAM2      = LibAddonMenu2 -- do I still need to use LibStub("LibAddonMenu-2.0")
--- local LAM2      = LibStub("LibAddonMenu-2.0")
+local LAM2      = LibAddonMenu2
 
 function PetKennel:CreateSettingsUI()
     self.saved_vars.enable = self.saved_vars.enable or {}
@@ -11,7 +10,6 @@ function PetKennel:CreateSettingsUI()
         displayName         = self.name,
         author              = "ziggr",
         version             = self.version,
-        --slashCommand        = "/gg",
         registerForRefresh  = false,
         registerForDefaults = false,
     }
