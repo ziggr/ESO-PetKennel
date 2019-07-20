@@ -31,3 +31,4 @@ PetKennel_Define.lua
 PetKennel_Log.lua
 PetKennel_SettingsUI.lua
 PetKennel.lua
+Bindings.xml

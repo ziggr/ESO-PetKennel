@@ -43,7 +43,6 @@ function PetKennel:HidePet()
     end
 end
 
-
 -- Event Listeners -----------------------------------------------------------
 
 function PetKennel:RegisterListeners()
@@ -67,6 +66,12 @@ function PetKennel.OnCraftingStationInteract(event, station_id, same_station)
     end
 end
 
+
+-- Key Binding ---------------------------------------------------------------
+
+function PetKennel.KeyBindingHidePet()
+    PetKennel:HidePet()
+end
 
 -- Init ----------------------------------------------------------------------
 
@@ -95,4 +100,19 @@ EVENT_MANAGER:RegisterForEvent( PetKennel.name
                               , EVENT_ADD_ON_LOADED
                               , PetKennel.OnAddOnLoaded
                               )
+
+                        -- Key binding strings must be defined earlier than
+                        -- OnAddOnLoaded() time or the key binding will not
+                        -- appear in Controls/Keybindings.
+                        --
+                        -- Category string is locked at file-load time and
+                        -- cannot be changed. That's okay, we don't translate
+                        -- our add-on name anyway.
+                        --
+                        -- Individual key binds can and should be replaced with
+                        -- i18n strings later, once we've loaded savedVariables
+                        -- and know which language the user prefers.
+
+ZO_CreateStringId("SI_KEYBINDINGS_CATEGORY_PET_KENNEL",    "PetKennel")
+ZO_CreateStringId("SI_BINDING_NAME_PetKennel_HidePet",     "Hide Pet")
 
