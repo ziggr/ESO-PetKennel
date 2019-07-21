@@ -34,13 +34,39 @@ function PetKennel:HidePet()
         local buff_name  = o[ 1]
         local ability_id = o[11]
         if PetKennel.PET_ABILITY_ID[ability_id] then
-            -- Log:StartNewEvent("HidePet")
-            -- Log:Add("buff", o)
-            -- Log:EndEvent()
             Log.Info("Hiding pet: %s", o[1])
             CancelBuff(buff_index)
         end
     end
+
+    local vanity_pet_coll_id, pet_name = self.FindActiveVanityPetCollectibleId()
+    if vanity_pet_coll_id then
+        Log.Info("Hiding pet: %s", pet_name)
+        UseCollectible(vanity_pet_coll_id)
+    end
+end
+
+function PetKennel:FindActiveVanityPetCollectibleId()
+    local cctype  = COLLECTIBLE_CATEGORY_TYPE_VANITY_PET
+    local coll_ct = GetTotalCollectiblesByCategoryType(cctype)
+    -- Log:StartNewEvent("FindVanity")
+    for i = 1,coll_ct do
+        local coll_id = GetCollectibleIdFromType(cctype, i)
+                        -- Assume ALL pets are "renamable" and
+                        -- non-pets are not.
+        if IsCollectibleRenameable(coll_id) then
+            local o = { GetCollectibleInfo(coll_id) }
+            -- Log:Add(o)
+            local is_active = o[7]
+            if is_active then
+                local pet_name = o[1]
+                return coll_id, pet_name
+            end
+        else
+            -- Log:Add(coll_id)
+        end
+    end
+    -- Log:EndEvent()
 end
 
 function PetKennel:DumpPets()

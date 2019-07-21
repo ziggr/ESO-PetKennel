@@ -1,4 +1,4 @@
-PetKennel automatically dismisses combat pets when doing errands in town.
+PetKennel automatically dismisses pets when doing errands in town.
 
 # System Requirements:
 
@@ -11,7 +11,7 @@ PetKennel automatically dismisses combat pets when doing errands in town.
 - Have you ever apologized in chat for your pet interfering with other players doing their daily crafting writs?
 - Wish you could dismiss a pet with a single keystroke?
 
-PetKennel automatically dismisses your combat pet upon common in-town interactions:
+PetKennel automatically dismisses your pet upon common in-town interactions:
 
 - daily crafting writ board
 - crafting station
@@ -28,7 +28,7 @@ PetKennel also adds a keybinding to "Hide Pet".
 
 ### Chat Output
 
-PetKennel writs to chat when it dismisses your pet.
+PetKennel writs to chat when it dismisses your pet(s).
 
 ![chat output when PetKennel hides your pet](doc/img/chat_hide.jpg)
 
@@ -38,9 +38,9 @@ If for some reason you _want_ your big opaque bear to get in everybody's way, yo
 
 ![PetKennel settings](doc/img/settings.jpg)
 
-# Todo
+# To Do
 
-- **Collectible pets:** Figure out how to detect and dismiss all those floating baby netches and blue dragon imps.
+- Assistants? It's amusing to see Tythis and Nuzhimeh chasing after crafters as they do their daily writs. Should I hide them?
 
 # Thank You
 
