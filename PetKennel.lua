@@ -4,7 +4,7 @@
 local PetKennel = _G['PetKennel']
 
 PetKennel.name              = "PetKennel"
-PetKennel.version           = "5.1.1"
+PetKennel.version           = "5.1.2"
 PetKennel.saved_var_version = 1
 
 PetKennel.default = {

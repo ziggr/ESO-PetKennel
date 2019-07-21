@@ -43,6 +43,6 @@ doc:
 
 	sed sSdoc/img/chat_hide.jpgShttps://cdn-eso.mmoui.com/preview/pvw8263.jpgS /tmp/md2bbdoc >/tmp/md2bbdoc_a ; mv /tmp/md2bbdoc_a /tmp/md2bbdoc
 	sed sSdoc/img/key_binding.jpgShttps://cdn-eso.mmoui.com/preview/pvw8264.jpgS /tmp/md2bbdoc >/tmp/md2bbdoc_a ; mv /tmp/md2bbdoc_a /tmp/md2bbdoc
-	sed sSdoc/img/settings.jpgShttps://cdn-eso.mmoui.com/preview/pvw8265.jpgS /tmp/md2bbdoc >/tmp/md2bbdoc_a ; mv /tmp/md2bbdoc_a /tmp/md2bbdoc
+	sed sSdoc/img/settings.jpgShttps://cdn-eso.mmoui.com/preview/pvw8266.jpgS /tmp/md2bbdoc >/tmp/md2bbdoc_a ; mv /tmp/md2bbdoc_a /tmp/md2bbdoc
 
 	cp /tmp/md2bbdoc doc/README.bbcode
