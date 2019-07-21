@@ -18,7 +18,7 @@ function PetKennel:CreateSettingsUI()
                                                      )
     local optionsData = {
         { type      = "checkbox"
-        , name      = "crafting writ board"
+        , name      = "crafting writ boards"
         , tooltip   = "Hide pet at daily crafting writ board?"
         , getFunc   = function()
                         return self.saved_vars.enable.crafting_board ~= false
@@ -29,7 +29,7 @@ function PetKennel:CreateSettingsUI()
         },
 
         { type      = "checkbox"
-        , name      = "crafting station"
+        , name      = "crafting stations"
         , tooltip   = "Hide pet at crafting station?"
         , getFunc   = function()
                         return self.saved_vars.enable.crafting_station ~= false
@@ -40,7 +40,7 @@ function PetKennel:CreateSettingsUI()
         },
 
         { type      = "checkbox"
-        , name      = "writ turn-in"
+        , name      = "writ turn-in crates"
         , tooltip   = "Hide pet at writ turn-in crates?"
         , getFunc   = function()
                         return self.saved_vars.enable.turn_in ~= false
@@ -52,7 +52,7 @@ function PetKennel:CreateSettingsUI()
 
         { type      = "checkbox"
         , name      = "banker"
-        , tooltip   = "Hide pet at banker?"
+        , tooltip   = "Hide pet at (non-assistant) banker?"
         , getFunc   = function()
                         return self.saved_vars.enable.banker ~= false
                       end
@@ -63,7 +63,7 @@ function PetKennel:CreateSettingsUI()
 
         { type      = "checkbox"
         , name      = "merchant"
-        , tooltip   = "Hide pet at merchant?"
+        , tooltip   = "Hide pet at (non-assistant) merchant?"
         , getFunc   = function()
                         return self.saved_vars.enable.merchant ~= false
                       end
@@ -73,7 +73,7 @@ function PetKennel:CreateSettingsUI()
         },
 
         { type      = "checkbox"
-        , name      = "rolis"
+        , name      = "Rolis"
         , tooltip   = "Hide pet at Rolis Hlaalu?"
         , getFunc   = function()
                         return self.saved_vars.enable.rolis ~= false

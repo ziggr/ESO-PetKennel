@@ -102,6 +102,7 @@ function PetKennel.Logger()
         end
         if not self.logger then
             self.logger = NOP
+            PetKennel.log_to_chat_info        = true
             PetKennel.log_to_chat_warn_error  = true
         end
     end
@@ -110,6 +111,12 @@ end
 
 function PetKennel.LogOne(color, ...)
     if PetKennel.log_to_chat then
+        d("|c"..color..PetKennel.name..": "..string.format(...).."|r")
+    end
+end
+
+function PetKennel.LogOneInfo(color, ...)
+    if PetKennel.log_to_chat or PetKennel.log_to_chat_info then
         d("|c"..color..PetKennel.name..": "..string.format(...).."|r")
     end
 end
@@ -126,7 +133,7 @@ function Log.Debug(...)
 end
 
 function Log.Info(...)
-    PetKennel.LogOne("999999",...)
+    PetKennel.LogOneInfo("999999",...)
     PetKennel.Logger():Info(...)
 end
 

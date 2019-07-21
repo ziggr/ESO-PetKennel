@@ -37,10 +37,36 @@ function PetKennel:HidePet()
             -- Log:StartNewEvent("HidePet")
             -- Log:Add("buff", o)
             -- Log:EndEvent()
-            Log.Info("Hiding pet:%s", o[1])
+            Log.Info("Hiding pet: %s", o[1])
             CancelBuff(buff_index)
         end
     end
+end
+
+function PetKennel:DumpPets()
+    local list = {}
+    for k,_ in pairs(self.PET_ABILITY_ID) do
+        table.insert(list, k)
+    end
+    table.sort(list)
+    Log:StartNewEvent("Dumping all pet abilities...")
+    for _,ability_id in ipairs(list) do
+        local n = GetAbilityName(ability_id)
+        Log:Add(string.format("%5d %s", ability_id, n))
+    end
+    Log:EndEvent()
+
+    Log:StartNewEvent("Dumping all buffs")
+    for i = 1, GetNumBuffs("player") do
+        local o = { GetUnitBuffInfo("player", i) }
+        Log:Add(string.format( "ability_id:%d can_click_off:%s %s"
+                             , o[11]
+                             , tostring(o[12])
+                             , o[ 1]
+                             ))
+
+    end
+    Log:EndEvent()
 end
 
 -- Event Listeners -----------------------------------------------------------
