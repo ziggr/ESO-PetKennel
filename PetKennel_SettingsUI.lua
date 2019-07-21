@@ -17,6 +17,11 @@ function PetKennel:CreateSettingsUI()
                                                      , panelData
                                                      )
     local optionsData = {
+        { type      = "header"
+        , name      = "Dismiss combat + vanity pets:"
+        },
+
+
         { type      = "checkbox"
         , name      = "crafting writ boards"
         , tooltip   = "Hide pet at daily crafting writ board?"
@@ -80,6 +85,22 @@ function PetKennel:CreateSettingsUI()
                       end
         , setFunc   = function(e)
                         self.saved_vars.enable.rolis = e
+                      end
+        },
+
+        { type      = "header"
+        , name      = "Dismiss vanity pets:"
+        },
+
+
+        { type      = "checkbox"
+        , name      = "dungeons & delves"
+        , tooltip   = "Hide vanity pet when entering dungeons or delves?"
+        , getFunc   = function()
+                        return self.saved_vars.enable.dungeon_and_delve ~= false
+                      end
+        , setFunc   = function(e)
+                        self.saved_vars.enable.dungeon_and_delve = e
                       end
         },
 

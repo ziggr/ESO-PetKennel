@@ -25,23 +25,33 @@ PetKennel.PET_ABILITY_ID = {
 }
 -- 85986 = Eternal Guardian warden bear
 
+local function caret_strip(s)
+    return zo_strformat("<<1>>",s)
+end
+
 function PetKennel:HidePet()
     Log.Debug("HidePet")
+    self:HideCombatPet()
+    self:HideVanityPet()
+end
 
+function PetKennel:HideCombatPet()
     for i = 1, GetNumBuffs("player") do
         local o = { GetUnitBuffInfo("player", i) }
         local buff_index = o[ 4]
         local buff_name  = o[ 1]
         local ability_id = o[11]
         if PetKennel.PET_ABILITY_ID[ability_id] then
-            Log.Info("Hiding pet: %s", o[1])
+            Log.Info("Hiding pet: %s", caret_strip(o[1]))
             CancelBuff(buff_index)
         end
     end
+end
 
+function PetKennel:HideVanityPet()
     local vanity_pet_coll_id, pet_name = self.FindActiveVanityPetCollectibleId()
     if vanity_pet_coll_id then
-        Log.Info("Hiding pet: %s", pet_name)
+        Log.Info("Hiding pet: %s", caret_strip(pet_name))
         UseCollectible(vanity_pet_coll_id)
     end
 end
@@ -118,6 +128,11 @@ function PetKennel:RegisterListeners()
     EVENT_MANAGER:RegisterForEvent(self.name
         , EVENT_CHATTER_BEGIN
         , PetKennel.OnChatterBegin
+        )
+
+    EVENT_MANAGER:RegisterForEvent(self.name
+        , EVENT_PLAYER_ACTIVATED
+        , PetKennel.OnPlayerActivated
         )
 
 end
@@ -202,6 +217,16 @@ end
 
 function PetKennel:GetDialogTitle()
     return ZO_InteractWindowTargetAreaTitle:GetText()
+end
+
+function PetKennel.OnPlayerActivated()
+    local self = PetKennel
+    local is_d = IsUnitInDungeon("player")
+    if is_d then
+        if self.saved_vars.dungeon_and_delve ~= false then
+            self:HideVanityPet()
+        end
+    end
 end
 
 -- Key Binding ---------------------------------------------------------------
