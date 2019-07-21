@@ -7,11 +7,11 @@ PetKennel automatically dismisses pets when doing errands in town.
 # Why PetKennel?
 
 - Sick of Twilight Matriarchs flap-flap-flapping in your face when trying to craft?
-- Wish you could automatically put away your warden's bear when you walk into a bank?
-- Have you ever apologized in chat for your pet interfering with other players doing their daily crafting writs?
-- Wish you could dismiss a pet with a single keystroke?
+- Wish you could automatically put away your warden's bear when you walk up to a daily writ turn-in crate?
+- Have you ever apologized in chat for your pets interfering with other players doing their daily crafting writs?
+- Wish you could dismiss pets with a single keystroke?
 
-PetKennel automatically dismisses your pet upon common in-town interactions:
+PetKennel automatically dismisses your combat and vanity pets upon common in-town interactions:
 
 - daily crafting writ board
 - crafting station
@@ -28,7 +28,7 @@ PetKennel also adds a keybinding to "Hide Pet".
 
 ### Chat Output
 
-PetKennel writs to chat when it dismisses your pet(s).
+PetKennel writes to chat when it dismisses your pet(s).
 
 ![chat output when PetKennel hides your pet](doc/img/chat_hide.jpg)
 
@@ -41,6 +41,7 @@ If for some reason you _want_ your big opaque bear to get in everybody's way, yo
 # To Do
 
 - Assistants? It's amusing to see Tythis and Nuzhimeh chasing after crafters as they do their daily writs. Should I hide them?
+- No, there is no way to force _other_ players to dismiss _their_ pets. Perhaps politely ask them to install PetKennel?.
 
 # Thank You
 
@@ -50,4 +51,3 @@ Originally inspired by [Dolgubon's Lazy Writ Crafter](https://www.esoui.com/down
 
 [ESO-PetKennel on GitHub](https://github.com/ziggr/ESO-PetKennel)
 
---Z
