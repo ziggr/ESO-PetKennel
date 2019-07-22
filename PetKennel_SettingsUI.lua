@@ -2,13 +2,13 @@ local LAM2      = LibAddonMenu2
 
 -- constants for settings
 PetKennel.SETTINGS = {
-    WRIT_BOARD       = { ord=1 , title="Crafting Writ Boards" }
-,   CRAFTING_STATION = { ord=2 , title="Crafting Stations"    }
-,   TURN_IN_CRATE    = { ord=3 , title="Writ Turn-in Crates"  }
-,   BANKER           = { ord=4 , title="Banker"               }
-,   MERCHANT         = { ord=5 , title="Merchant"             }
-,   ROLIS            = { ord=6 , title="Rolis Hlaalu"         }
-,   DUNGEON          = { ord=7 , title="Dungeons & Delves"    }
+    WRIT_BOARD       = { ord=1 , title="Crafting Writ Boards"        }
+,   CRAFTING_STATION = { ord=2 , title="Crafting Stations"           }
+,   TURN_IN_CRATE    = { ord=3 , title="Writ Turn-in Crates"         }
+,   BANKER           = { ord=4 , title="Banker"                      }
+,   MERCHANT         = { ord=5 , title="Merchants and Guild Traders" }
+,   ROLIS            = { ord=6 , title="Rolis Hlaalu"                }
+,   DUNGEON          = { ord=7 , title="Dungeons & Delves"           }
 }
 for key, row in pairs(PetKennel.SETTINGS) do
     row.key = key

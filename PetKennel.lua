@@ -140,6 +140,11 @@ function PetKennel:RegisterListeners()
         )
 
     EVENT_MANAGER:RegisterForEvent(self.name
+        , EVENT_OPEN_TRADING_HOUSE
+        , PetKennel.OnOpenTradingHouse
+        )
+
+    EVENT_MANAGER:RegisterForEvent(self.name
         , EVENT_CHATTER_BEGIN
         , PetKennel.OnChatterBegin
         )
@@ -167,6 +172,12 @@ function PetKennel.OnOpenStore(event)
     if not is_assistant then
         PetKennel:HidePetsIf(PetKennel.SETTINGS.MERCHANT.key)
     end
+end
+
+                        -- Treat Guild Store same as NPC Merchant.
+                        -- Pets get in the way while shopping guild stores.
+function PetKennel.OnOpenTradingHouse(event)
+    PetKennel:HidePetsIf(PetKennel.SETTINGS.MERCHANT.key)
 end
 
 function PetKennel.OnChatterBegin(option_ct)
