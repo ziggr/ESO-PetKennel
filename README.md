@@ -17,8 +17,12 @@ PetKennel automatically dismisses your combat and vanity pets upon common in-tow
 - crafting station
 - crafting writ turn-in crate
 - (non-assistant) bank
-- (non-assistant) merchant
+- (non-assistant) merchants and guild traders
 - Rolis Hlaalu
+
+By popular demand, PetKennel can also automatically dismiss your pets (usually just non-combat pets!) when you're out in the field:
+
+- dungeons & delves
 
 ### KeyBinding
 
