@@ -1,5 +1,19 @@
 local LAM2      = LibAddonMenu2
 
+-- constants for settings
+PetKennel.SETTINGS = {
+    WRIT_BOARD       = { ord=1 , title="Crafting Writ Boards" }
+,   CRAFTING_STATION = { ord=2 , title="Crafting Stations"    }
+,   TURN_IN_CRATE    = { ord=3 , title="Writ Turn-in Crates"  }
+,   BANKER           = { ord=4 , title="Banker"               }
+,   MERCHANT         = { ord=5 , title="Merchant"             }
+,   ROLIS            = { ord=6 , title="Rolis Hlaalu"         }
+,   DUNGEON          = { ord=7 , title="Dungeons & Delves"    }
+}
+for key, row in pairs(PetKennel.SETTINGS) do
+    row.key = key
+end
+
 function PetKennel:CreateSettingsUI()
     self.saved_vars.enable = self.saved_vars.enable or {}
 
@@ -13,99 +27,55 @@ function PetKennel:CreateSettingsUI()
         registerForRefresh  = false,
         registerForDefaults = false,
     }
-    local cntrlOptionsPanel = LAM2:RegisterAddonPanel( lam_addon_id
-                                                     , panelData
-                                                     )
-    local optionsData = {
-        { type      = "header"
-        , name      = "Dismiss combat + vanity pets:"
-        },
+    LAM2:RegisterAddonPanel(lam_addon_id, panelData)
 
+    local t = {}
+    for key, row in pairs(PetKennel.SETTINGS) do
+        t[row.ord] = row
+    end
 
-        { type      = "checkbox"
-        , name      = "crafting writ boards"
-        , tooltip   = "Hide pet at daily crafting writ board?"
-        , getFunc   = function()
-                        return self.saved_vars.enable.crafting_board ~= false
-                      end
-        , setFunc   = function(e)
-                        self.saved_vars.enable.crafting_board = e
-                      end
-        },
+    local options_data = {  { type      = "description"
+                            , text      = "Automatically dismisses pets when they could be in your or other players' way."
+                            }
 
-        { type      = "checkbox"
-        , name      = "crafting stations"
-        , tooltip   = "Hide pet at crafting station?"
-        , getFunc   = function()
-                        return self.saved_vars.enable.crafting_station ~= false
-                      end
-        , setFunc   = function(e)
-                        self.saved_vars.enable.crafting_station = e
-                      end
-        },
+                         ,  { type      = "description"
+                            , width     = "half"
+                            , title     = "Combat Pets"
+                            }
+                         ,  { type      = "description"
+                            , width     = "half"
+                            , title     = "Non-Combat Pets"
+                            }
+                         }
 
-        { type      = "checkbox"
-        , name      = "writ turn-in crates"
-        , tooltip   = "Hide pet at writ turn-in crates?"
-        , getFunc   = function()
-                        return self.saved_vars.enable.turn_in ~= false
-                      end
-        , setFunc   = function(e)
-                        self.saved_vars.enable.turn_in = e
-                      end
-        },
+                        -- Leading whitespace is trimmed. If we want to retain
+                        -- leading whitespeace, bracket it with pointless color
+                        -- codes.
+    local indent = "|c000000       |r"
+    for _,row in ipairs(t) do
+        self.saved_vars.enable[row.key] = self.saved_vars.enable[row.key] or {}
+        local cb1 = { type      = "checkbox"
+                    , width     = "half"
+                    , name      = indent .. row.title
+                    , getFunc   = function()
+                                    return self.saved_vars.enable[row.key].combat ~= false
+                                  end
+                    , setFunc   = function(e)
+                                    self.saved_vars.enable[row.key].combat = e
+                                  end
+                    }
+        local cb2 = { type      = "checkbox"
+                    , width     = "half"
+                    , getFunc   = function()
+                                    return self.saved_vars.enable[row.key].non_combat ~= false
+                                  end
+                    , setFunc   = function(e)
+                                    self.saved_vars.enable[row.key].non_combat = e
+                                  end
+                    }
+        table.insert(options_data, cb1)
+        table.insert(options_data, cb2)
+    end
 
-        { type      = "checkbox"
-        , name      = "banker"
-        , tooltip   = "Hide pet at (non-assistant) banker?"
-        , getFunc   = function()
-                        return self.saved_vars.enable.banker ~= false
-                      end
-        , setFunc   = function(e)
-                        self.saved_vars.enable.banker = e
-                      end
-        },
-
-        { type      = "checkbox"
-        , name      = "merchant"
-        , tooltip   = "Hide pet at (non-assistant) merchant?"
-        , getFunc   = function()
-                        return self.saved_vars.enable.merchant ~= false
-                      end
-        , setFunc   = function(e)
-                        self.saved_vars.enable.merchant = e
-                      end
-        },
-
-        { type      = "checkbox"
-        , name      = "Rolis"
-        , tooltip   = "Hide pet at Rolis Hlaalu?"
-        , getFunc   = function()
-                        return self.saved_vars.enable.rolis ~= false
-                      end
-        , setFunc   = function(e)
-                        self.saved_vars.enable.rolis = e
-                      end
-        },
-
-        { type      = "header"
-        , name      = "Dismiss vanity pets:"
-        },
-
-
-        { type      = "checkbox"
-        , name      = "dungeons & delves"
-        , tooltip   = "Hide vanity pet when entering dungeons or delves?"
-        , getFunc   = function()
-                        return self.saved_vars.enable.dungeon_and_delve ~= false
-                      end
-        , setFunc   = function(e)
-                        self.saved_vars.enable.dungeon_and_delve = e
-                      end
-        },
-
-    }
-
-    LAM2:RegisterOptionControls(lam_addon_id, optionsData)
+    LAM2:RegisterOptionControls(lam_addon_id, options_data)
 end
-

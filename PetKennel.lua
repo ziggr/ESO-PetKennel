@@ -5,9 +5,12 @@ local PetKennel = _G['PetKennel']
 
 PetKennel.name              = "PetKennel"
 PetKennel.version           = "5.1.2"
-PetKennel.saved_var_version = 1
+PetKennel.saved_var_version = 2
 
 PetKennel.default = {
+                        -- Unless explicitly listed here, all "enable"
+                        -- settings default to "on".
+    enable = { DUNGEON = { combat = false, non_combat = false } }
 }
 
 local Log = PetKennel.Log
@@ -33,6 +36,17 @@ function PetKennel:HidePet()
     Log.Debug("HidePet")
     self:HideCombatPet()
     self:HideVanityPet()
+end
+
+-- Hide combat and/or non-combat pets if settings enabled.
+function PetKennel:HidePetsIf(setting_name)
+    local sv = self.saved_vars.enable[setting_name] or {}
+    if sv.combat ~= false then
+        self:HideCombatPet()
+    end
+    if sv.non_combat ~= false then
+        self:HideVanityPet()
+    end
 end
 
 function PetKennel:HideCombatPet()
@@ -138,38 +152,20 @@ function PetKennel:RegisterListeners()
 end
 
 function PetKennel.OnCraftingStationInteract(event, station_id, same_station)
-    local self = PetKennel
-    Log.Debug( "OnCraftingStationInteract, enable:%s"
-             , tostring(self.saved_vars.enable.crafting_station)
-             )
-    if self.saved_vars.enable.crafting_station ~= false then
-        self:HidePet()
-    end
+    PetKennel:HidePetsIf(PetKennel.SETTINGS.CRAFTING_STATION.key)
 end
 
 function PetKennel.OnOpenBank(event, station_id, bag_id)
-    local self = PetKennel
     local is_assistant = IsInteractingWithMyAssistant()
-    Log.Debug( "OnOpenBank, enable:%s assistant:%s"
-             , tostring(self.saved_vars.enable.banker)
-             , tostring(is_assistant)
-             )
-    if (not is_assistant)
-        and self.saved_vars.enable.banker ~= false then
-        self:HidePet()
+    if not is_assistant then
+        PetKennel:HidePetsIf(PetKennel.SETTINGS.BANKER.key)
     end
 end
 
 function PetKennel.OnOpenStore(event)
-    local self = PetKennel
     local is_assistant = IsInteractingWithMyAssistant()
-    Log.Debug( "OnOpenStore, enable:%s assistant:%s"
-             , tostring(self.saved_vars.enable.merchant)
-             , tostring(is_assistant)
-             )
-    if (not is_assistant)
-        and self.saved_vars.enable.merchant ~= false then
-        self:HidePet()
+    if not is_assistant then
+        PetKennel:HidePetsIf(PetKennel.SETTINGS.MERCHANT.key)
     end
 end
 
@@ -179,40 +175,21 @@ function PetKennel.OnChatterBegin(option_ct)
 
     local is_writ_board = LibCraftText.DailyDialogTitleIsWritBoard(dialog_title)
     if is_writ_board then
-        Log.Debug( "OnChatterBegin, enable:%s is_writ_board:%s"
-                 , tostring(self.saved_vars.enable.crafting_board)
-                 , tostring(is_writ_board)
-                 )
-        if self.saved_vars.enable.crafting_board ~= false then
-            self:HidePet()
-        end
+        PetKennel:HidePetsIf(PetKennel.SETTINGS.WRIT_BOARD.key)
         return
     end
 
     local is_turn_in = LibCraftText.DailyDialogTurnInTitleToCraftingType(dialog_title)
     if is_turn_in then
-        Log.Debug( "OnChatterBegin, enable:%s is_turn_in:%s"
-                 , tostring(self.saved_vars.enable.turn_in)
-                 , tostring(is_turn_in)
-                 )
-        if self.saved_vars.enable.turn_in ~= false then
-            self:HidePet()
-        end
+        PetKennel:HidePetsIf(PetKennel.SETTINGS.TURN_IN_CRATE.key)
         return
     end
 
     local is_rolis = LibCraftText.MASTER.DIALOG.TITLE_ROLIS == dialog_title
     if is_rolis then
-        Log.Debug( "OnChatterBegin, enable:%s is_rolis:%s"
-                 , tostring(self.saved_vars.enable.rolis)
-                 , tostring(is_rolis)
-                 )
-        if self.saved_vars.enable.rolis ~= false then
-            self:HidePet()
-        end
+        PetKennel:HidePetsIf(PetKennel.SETTINGS.ROLIS.key)
         return
     end
-
 end
 
 function PetKennel:GetDialogTitle()
@@ -223,9 +200,7 @@ function PetKennel.OnPlayerActivated()
     local self = PetKennel
     local is_d = IsUnitInDungeon("player")
     if is_d then
-        if self.saved_vars.dungeon_and_delve ~= false then
-            self:HideVanityPet()
-        end
+        PetKennel:HidePetsIf(PetKennel.SETTINGS.DUNGEON.key)
     end
 end
 
@@ -277,4 +252,3 @@ EVENT_MANAGER:RegisterForEvent( PetKennel.name
 
 ZO_CreateStringId("SI_KEYBINDINGS_CATEGORY_PET_KENNEL",    "PetKennel")
 ZO_CreateStringId("SI_BINDING_NAME_PetKennel_HidePet",     "Hide Pet")
-
