@@ -34,8 +34,7 @@ end
 
 function PetKennel:HidePet()
     Log.Debug("HidePet")
-    self:HideCombatPet()
-    self:HideVanityPet()
+    self:HidePetsIf(PetKennel.SETTINGS.KEY_BINDING.key)
 end
 
 -- Hide combat and/or non-combat pets if settings enabled.

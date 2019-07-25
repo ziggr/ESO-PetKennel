@@ -9,6 +9,7 @@ PetKennel.SETTINGS = {
 ,   MERCHANT         = { ord=5 , title="Merchants and Guild Traders" }
 ,   ROLIS            = { ord=6 , title="Rolis Hlaalu"                }
 ,   DUNGEON          = { ord=7 , title="Dungeons & Delves"           }
+,   KEY_BINDING      = { ord=8 , title="Key Binding"                 }
 }
 for key, row in pairs(PetKennel.SETTINGS) do
     row.key = key
