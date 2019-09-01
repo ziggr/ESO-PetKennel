@@ -1,8 +1,8 @@
-## Title: PetKennel 5.1.4
-## Version: 5.1.4
-## AddOnVersion: 050104
-## Last Updated: 2019-07-25
-## APIVersion: 100027 100028
+## Title: PetKennel 5.1.5
+## Version: 5.1.5
+## AddOnVersion: 050105
+## Last Updated: 2019-09-01
+## APIVersion: 100028
 ## Description: Automatically dismiss pets at crafting stations and banks.
 ## Author: ziggr
 ## SavedVariables: PetKennelVars
