@@ -39,6 +39,10 @@ end
 
 -- Hide combat and/or non-combat pets if settings enabled.
 function PetKennel:HidePetsIf(setting_name)
+    if PetKennel.IsInPlayerHousing() then
+        -- Log.Info("Skipped: player housing")
+        return
+    end
     local sv = self.saved_vars.enable[setting_name] or {}
     if sv.combat ~= false then
         self:HideCombatPet()
@@ -212,6 +216,11 @@ function PetKennel.OnPlayerActivated()
     if is_d then
         PetKennel:HidePetsIf(PetKennel.SETTINGS.DUNGEON.key)
     end
+end
+
+function PetKennel.IsInPlayerHousing()
+    local house_owner  = GetCurrentHouseOwner()
+    return house_owner and (house_owner ~= "")
 end
 
 -- Key Binding ---------------------------------------------------------------
